@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bảo Tàng Cá Voi Xanh</title>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<style>
+/* ---- Nền đại dương động + sóng nước ---- */
+body{
+  margin:0;
+  font-family:Arial;
+  color:white;
+  overflow-x:hidden;
+  position:relative;
+  background:#021524;
+  background: radial-gradient(circle at 50% 20%, #063a63, #021524 70%);
+  animation:deepSea 25s ease-in-out infinite alternate;
+}
+
+/* animation gradient */
+@keyframes deepSea{
+  0%{background-position:0% 0%;}
+  50%{background-position:15% 10%;}
+  100%{background-position:0% 0%;}
+}
+
+/* sóng nước overlay */
+body::after{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: url('https://i.ibb.co/ZYW3VTp/ocean-wave.png') repeat;
+  opacity:0.07;
+  animation:waveMotion 30s linear infinite;
+  pointer-events:none;
+  z-index:2;
+}
+@keyframes waveMotion{
+  0%{background-position:0 0;}
+  100%{background-position:1000px 1000px;}
+}
+
+/* ánh sáng theo chuột */
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle at var(--x) var(--y), rgba(0,180,255,0.15), transparent 40%);
+  pointer-events:none;
+  z-index:5;
+}
+
+/* bong bóng bình thường */
+.bubble{
+  position:fixed;
+  bottom:-100px;
+  width:20px;
+  height:20px;
+  background:rgba(255,255,255,0.3);
+  border-radius:50%;
+  animation:float 12s linear infinite;
+}
+@keyframes float{
+  0%{transform:translateY(0) scale(0.8);}
+  50%{transform:translateY(-600px) scale(1);}
+  100%{transform:translateY(-1200px) scale(0.8);}
+}
+
+/* bong bóng cá voi lớn */
+.whale-bubble{
+  position:fixed;
+  bottom:-120px;
+  width:50px;
+  height:50px;
+  background:rgba(0,200,255,0.4);
+  border-radius:50%;
+  animation:whaleFloat 18s ease-in-out infinite;
+  box-shadow:0 0 25px rgba(0,255,255,0.5);
+  z-index:6;
+}
+@keyframes whaleFloat{
+  0%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-700px) scale(1.1);}
+  100%{transform:translateY(-1400px) scale(1);}
+}
+
+/* ---- Tiêu đề ---- */
+.hero{
+  text-align:center;
+  padding:100px 20px;
+  background:radial-gradient(circle,#0a5d91,#021524);
+  position:relative;
+  z-index:10;
+}
+.hero h1{
+  font-size:60px;
+  margin-bottom:15px;
+  text-shadow: 2px 2px 15px #0ff;
+}
+.hero p{
+  font-size:20px;
+  max-width:700px;
+  margin:auto;
+  line-height:1.6;
+}
+
+/* ---- Model 3D ---- */
+.model-section{
+  padding:80px 20px;
+  background:#011321;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+iframe, model-viewer{
+  width:900px;
+  max-width:90%;
+  height:500px;
+  background:black;
+  border-radius:20px;
+  box-shadow:0 0 60px rgba(0,255,255,0.7);
+  margin-top:30px;
+}
+
+/* ---- Gallery ---- */
+.gallery{
+  padding:80px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:40px;
+}
+.card{
+  width:320px;
+  background:#021a2e;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 35px rgba(0,0,0,0.8);
+  transition:0.4s;
+  cursor:pointer;
+}
+.card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 0 40px cyan;
+}
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+.card-content{
+  padding:20px;
+}
+.card-content h3{
+  margin-top:0;
+  font-size:22px;
+}
+.card-content p{
+  line-height:1.6;
+  font-size:16px;
+}
+
+/* ---- Footer ---- */
+footer{
+  text-align:center;
+  padding:60px 20px;
+  background:black;
+  position:relative;
+  z-index:10;
+}
+</style>
+</head>
+<body>
+
+<!-- Bong bóng nhỏ -->
+<div class="bubble" style="left:10%"></div>
+<div class="bubble" style="left:30%"></div>
+<div class="bubble" style="left:50%"></div>
+<div class="bubble" style="left:70%"></div>
+<div class="bubble" style="left:90%"></div>
+
+<!-- Bong bóng cá voi -->
+<div class="whale-bubble" style="left:20%"></div>
+<div class="whale-bubble" style="left:60%"></div>
+<div class="whale-bubble" style="left:80%"></div>
+
+<div class="hero">
+  <h1>Thế Giới Cá Voi Xanh</h1>
+  <p>
+    Cá voi xanh là loài động vật lớn nhất từng tồn tại trên Trái Đất.
+    Trang web này mô phỏng một khu trưng bày nhỏ giống như trong bảo tàng đại dương.
+  </p>
+</div>
+
+<section class="model-section">
+  <h2>Mô Hình Cá Voi 3D</h2>
+  <iframe
+    title="Blue Whale 3D"
+    frameborder="0"
+    allowfullscreen
+    src="https://sketchfab.com/models/1f4421bd151c49df87ff797c252c19d9/embed"
+    width="900"
+    height="500">
+  </iframe>
+</section>
+
+<section class="gallery">
+  <div class="card">
+    <img src="cavoi1.jpg">
+    <div class="card-content">
+      <h3>Kích Thước Khổng Lồ</h3>
+      <p>
+        Cá voi xanh có thể dài tới khoảng 30 mét và nặng hơn 180 tấn.
+        Chúng là loài động vật lớn nhất từng tồn tại trong lịch sử Trái Đất,
+        thậm chí còn lớn hơn nhiều loài khủng long cổ đại.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="cavoi2.jpg">
+    <div class="card-content">
+      <h3>Thức Ăn</h3>
+      <p>
+        Mặc dù có kích thước khổng lồ, cá voi xanh chủ yếu ăn sinh vật nhỏ
+        gọi là krill. Một ngày chúng có thể ăn tới 4 tấn krill để duy trì
+        nguồn năng lượng cho cơ thể khổng lồ của mình.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="cavoi3.jpg">
+    <div class="card-content">
+      <h3>Âm Thanh Và Di Cư</h3>
+      <p>
+        Cá voi xanh có thể tạo ra âm thanh rất lớn để giao tiếp dưới đại dương.
+        Âm thanh này có thể truyền đi hàng trăm km trong nước và giúp chúng
+        liên lạc với những con cá voi khác.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2>Bảo Vệ Đại Dương</h2>
+  <p>
+    Bảo vệ đại dương giúp bảo tồn cá voi xanh và nhiều loài sinh vật biển khác.
+  </p>
+</footer>
+
+<script>
+document.addEventListener("mousemove",function(e){
+  document.body.style.setProperty("--x",e.clientX+"px")
+  document.body.style.setProperty("--y",e.clientY+"px")
+})
+</script>
+</body>
+</html>
+
