@@ -1,268 +1,349 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bảo Tàng Cá Voi Xanh</title>
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<title>Cá Voi Xanh</title>
+
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 <style>
-/* ---- Nền đại dương động + sóng nước ---- */
+
 body{
-  margin:0;
-  font-family:Arial;
-  color:white;
-  overflow-x:hidden;
-  position:relative;
-  background:#021524;
-  background: radial-gradient(circle at 50% 20%, #063a63, #021524 70%);
-  animation:deepSea 25s ease-in-out infinite alternate;
+margin:0;
+font-family:Arial;
+background:linear-gradient(#001f3f,#0b3d91,#001f3f);
+color:white;
+text-align:center;
 }
 
-/* animation gradient */
-@keyframes deepSea{
-  0%{background-position:0% 0%;}
-  50%{background-position:15% 10%;}
-  100%{background-position:0% 0%;}
+h1{
+font-size:48px;
+margin-top:30px;
+animation:glow 3s infinite alternate;
 }
 
-/* sóng nước overlay */
-body::after{
-  content:"";
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: url('https://i.ibb.co/ZYW3VTp/ocean-wave.png') repeat;
-  opacity:0.07;
-  animation:waveMotion 30s linear infinite;
-  pointer-events:none;
-  z-index:2;
-}
-@keyframes waveMotion{
-  0%{background-position:0 0;}
-  100%{background-position:1000px 1000px;}
+@keyframes glow{
+from{ text-shadow:0 0 10px #4fc3f7;}
+to{ text-shadow:0 0 25px #00e5ff;}
 }
 
-/* ánh sáng theo chuột */
-body::before{
-  content:"";
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle at var(--x) var(--y), rgba(0,180,255,0.15), transparent 40%);
-  pointer-events:none;
-  z-index:5;
+.section{
+width:80%;
+margin:auto;
+margin-top:40px;
+background:rgba(255,255,255,0.05);
+padding:25px;
+border-radius:15px;
 }
 
-/* bong bóng bình thường */
-.bubble{
-  position:fixed;
-  bottom:-100px;
-  width:20px;
-  height:20px;
-  background:rgba(255,255,255,0.3);
-  border-radius:50%;
-  animation:float 12s linear infinite;
-}
-@keyframes float{
-  0%{transform:translateY(0) scale(0.8);}
-  50%{transform:translateY(-600px) scale(1);}
-  100%{transform:translateY(-1200px) scale(0.8);}
+.model-container{
+display:flex;
+gap:40px;
+justify-content:center;
+align-items:center;
 }
 
-/* bong bóng cá voi lớn */
-.whale-bubble{
-  position:fixed;
-  bottom:-120px;
-  width:50px;
-  height:50px;
-  background:rgba(0,200,255,0.4);
-  border-radius:50%;
-  animation:whaleFloat 18s ease-in-out infinite;
-  box-shadow:0 0 25px rgba(0,255,255,0.5);
-  z-index:6;
-}
-@keyframes whaleFloat{
-  0%{transform:translateY(0) scale(1);}
-  50%{transform:translateY(-700px) scale(1.1);}
-  100%{transform:translateY(-1400px) scale(1);}
+.model-left{
+flex:1;
 }
 
-/* ---- Tiêu đề ---- */
-.hero{
-  text-align:center;
-  padding:100px 20px;
-  background:radial-gradient(circle,#0a5d91,#021524);
-  position:relative;
-  z-index:10;
-}
-.hero h1{
-  font-size:60px;
-  margin-bottom:15px;
-  text-shadow: 2px 2px 15px #0ff;
-}
-.hero p{
-  font-size:20px;
-  max-width:700px;
-  margin:auto;
-  line-height:1.6;
+.model-right{
+flex:1;
 }
 
-/* ---- Model 3D ---- */
-.model-section{
-  padding:80px 20px;
-  background:#011321;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-}
-iframe, model-viewer{
-  width:900px;
-  max-width:90%;
-  height:500px;
-  background:black;
-  border-radius:20px;
-  box-shadow:0 0 60px rgba(0,255,255,0.7);
-  margin-top:30px;
+model-viewer{
+width:100%;
+height:400px;
 }
 
-/* ---- Gallery ---- */
-.gallery{
-  padding:80px 20px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:40px;
+.gallery-top{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-bottom:30px;
 }
+
+.gallery-bottom{
+display:flex;
+justify-content:center;
+gap:40px;
+}
+
 .card{
-  width:320px;
-  background:#021a2e;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 0 35px rgba(0,0,0,0.8);
-  transition:0.4s;
-  cursor:pointer;
-}
-.card:hover{
-  transform:translateY(-10px) scale(1.05);
-  box-shadow:0 0 40px cyan;
-}
-.card img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
-.card-content{
-  padding:20px;
-}
-.card-content h3{
-  margin-top:0;
-  font-size:22px;
-}
-.card-content p{
-  line-height:1.6;
-  font-size:16px;
+width:250px;
+background:rgba(255,255,255,0.05);
+padding:15px;
+border-radius:10px;
+transition:transform 0.3s;
 }
 
-/* ---- Footer ---- */
-footer{
-  text-align:center;
-  padding:60px 20px;
-  background:black;
-  position:relative;
-  z-index:10;
+.card:hover{
+transform:scale(1.05);
 }
+
+.card img{
+width:100%;
+border-radius:8px;
+cursor:pointer;
+}
+
+.lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.lightbox img{
+max-width:80%;
+border-radius:10px;
+}
+
+#lightbox-text{
+margin-top:20px;
+width:60%;
+font-size:18px;
+}
+
+.bubble{
+position:fixed;
+bottom:-100px;
+width:20px;
+height:20px;
+background:rgba(255,255,255,0.4);
+border-radius:50%;
+animation:rise 12s infinite;
+}
+
+@keyframes rise{
+0%{transform:translateY(0);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-120vh);opacity:0;}
+}
+
 </style>
+
 </head>
+
 <body>
 
-<!-- Bong bóng nhỏ -->
+<h1>🐋 CÁ VOI XANH</h1>
+
+<div class="section">
+
+<h2>Giới thiệu</h2>
+
+<p>
+Cá voi xanh (Balaenoptera musculus) là động vật lớn nhất từng tồn tại trên Trái Đất.
+Chúng có thể dài tới 30 mét và nặng hơn 180 tấn.
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>Mô hình cá voi và bộ xương</h2>
+
+<div class="model-container">
+
+<div class="model-left">
+
+<h3>Cá voi xanh</h3>
+
+<model-viewer
+src="blue_whale.glb"
+auto-rotate
+camera-controls
+style="width:100%; height:400px;">
+</model-viewer>
+
+</div>
+
+<div class="model-right">
+
+<h3>Bộ xương cá voi</h3>
+
+<model-viewer
+src="blue_whale_skeleton.glb"
+auto-rotate
+camera-controls
+style="width:100%; height:400px;">
+</model-viewer>
+
+</div>
+
+</div>
+
+</div>
+<div class="section">
+
+<h2>Đặc điểm</h2>
+
+<ul>
+
+<li>Chiều dài: 25 – 30 m</li>
+<li>Khối lượng: 100 – 180 tấn</li>
+<li>Màu sắc: xanh xám</li>
+<li>Tim có thể nặng khoảng 180 kg</li>
+<li>Là động vật có vú nên phải lên mặt nước để thở</li>
+
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>Hình ảnh và thông tin về cá voi xanh</h2>
+
+<div class="gallery-top">
+
+<div class="card">
+
+<img src="IMAGE1.jpg"
+onclick="openLightbox('IMAGE1.jpg','Cá voi xanh là động vật lớn nhất từng tồn tại trên Trái Đất.')">
+
+<h3>Cá voi xanh</h3>
+
+<p>
+Cá voi xanh là động vật lớn nhất từng tồn tại trên Trái Đất.
+Chiều dài có thể đạt khoảng 25 – 30 mét và khối lượng từ 100 – 180 tấn.
+Cơ thể có màu xanh xám với các đốm nhạt.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img src="IMAGE2.jpg"
+onclick="openLightbox('IMAGE2.jpg','Cá voi xanh đang kiếm ăn.')">
+
+<h3>Cá voi đang kiếm ăn</h3>
+
+<p>
+Thức ăn chính của cá voi xanh là krill (một loại tôm nhỏ).
+Một con cá voi trưởng thành có thể ăn khoảng 3 – 4 tấn krill mỗi ngày
+trong mùa kiếm ăn.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img src="IMAGE3.jpg"
+onclick="openLightbox('IMAGE3.jpg','Cá voi mẹ và con.')">
+
+<h3>Cá voi mẹ và con</h3>
+
+<p>
+Cá voi xanh là động vật có vú nên sinh con và nuôi con bằng sữa.
+Thời gian mang thai khoảng 10 – 12 tháng.
+Cá voi con khi sinh ra dài khoảng 7 mét và nặng khoảng 2 – 3 tấn.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="gallery-bottom">
+
+<div class="card">
+
+<img src="IMAGE4.jpg"
+onclick="openLightbox('IMAGE4.jpg','Săn bắt cá voi.')">
+
+<h3>Săn bắt cá voi</h3>
+
+<p>
+Trong quá khứ cá voi xanh bị săn bắt rất nhiều để lấy dầu và thịt.
+Điều này làm số lượng cá voi xanh giảm mạnh
+và khiến chúng trở thành loài có nguy cơ tuyệt chủng.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img src="IMAGE5.jpg"
+onclick="openLightbox('IMAGE5.jpg','Bộ xương cá voi.')">
+
+<h3>Bộ xương cá voi</h3>
+
+<p>
+Bộ xương cá voi xanh rất lớn và thường được trưng bày trong các bảo tàng
+tự nhiên. Điều này giúp mọi người hiểu rõ hơn về kích thước khổng lồ
+của loài động vật này.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>⚠ Nguy cơ tuyệt chủng</h2>
+
+<ul>
+
+<li>Săn bắt cá voi trong quá khứ</li>
+<li>Ô nhiễm đại dương</li>
+<li>Biến đổi khí hậu</li>
+<li>Va chạm với tàu biển</li>
+<li>Ô nhiễm tiếng ồn dưới nước</li>
+
+</ul>
+
+</div>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+
+<img id="lightbox-img">
+<div id="lightbox-text"></div>
+
+</div>
+
 <div class="bubble" style="left:10%"></div>
 <div class="bubble" style="left:30%"></div>
 <div class="bubble" style="left:50%"></div>
 <div class="bubble" style="left:70%"></div>
 <div class="bubble" style="left:90%"></div>
 
-<!-- Bong bóng cá voi -->
-<div class="whale-bubble" style="left:20%"></div>
-<div class="whale-bubble" style="left:60%"></div>
-<div class="whale-bubble" style="left:80%"></div>
-
-<div class="hero">
-  <h1>Thế Giới Cá Voi Xanh</h1>
-  <p>
-    Cá voi xanh là loài động vật lớn nhất từng tồn tại trên Trái Đất.
-    Trang web này mô phỏng một khu trưng bày nhỏ giống như trong bảo tàng đại dương.
-  </p>
-</div>
-
-<section class="model-section">
-  <h2>Mô Hình Cá Voi 3D</h2>
-  <iframe
-    title="Blue Whale 3D"
-    frameborder="0"
-    allowfullscreen
-    src="https://sketchfab.com/models/1f4421bd151c49df87ff797c252c19d9/embed"
-    width="900"
-    height="500">
-  </iframe>
-</section>
-
-<section class="gallery">
-  <div class="card">
-    <img src="cavoi1.jpg">
-    <div class="card-content">
-      <h3>Kích Thước Khổng Lồ</h3>
-      <p>
-        Cá voi xanh có thể dài tới khoảng 30 mét và nặng hơn 180 tấn.
-        Chúng là loài động vật lớn nhất từng tồn tại trong lịch sử Trái Đất,
-        thậm chí còn lớn hơn nhiều loài khủng long cổ đại.
-      </p>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="cavoi2.jpg">
-    <div class="card-content">
-      <h3>Thức Ăn</h3>
-      <p>
-        Mặc dù có kích thước khổng lồ, cá voi xanh chủ yếu ăn sinh vật nhỏ
-        gọi là krill. Một ngày chúng có thể ăn tới 4 tấn krill để duy trì
-        nguồn năng lượng cho cơ thể khổng lồ của mình.
-      </p>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="cavoi3.jpg">
-    <div class="card-content">
-      <h3>Âm Thanh Và Di Cư</h3>
-      <p>
-        Cá voi xanh có thể tạo ra âm thanh rất lớn để giao tiếp dưới đại dương.
-        Âm thanh này có thể truyền đi hàng trăm km trong nước và giúp chúng
-        liên lạc với những con cá voi khác.
-      </p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <h2>Bảo Vệ Đại Dương</h2>
-  <p>
-    Bảo vệ đại dương giúp bảo tồn cá voi xanh và nhiều loài sinh vật biển khác.
-  </p>
-</footer>
-
 <script>
-document.addEventListener("mousemove",function(e){
-  document.body.style.setProperty("--x",e.clientX+"px")
-  document.body.style.setProperty("--y",e.clientY+"px")
-})
-</script>
-</body>
-</html>
 
+function openLightbox(img,text){
+
+document.getElementById("lightbox").style.display="flex"
+
+document.getElementById("lightbox-img").src=img
+
+document.getElementById("lightbox-text").innerText=text
+
+}
+
+function closeLightbox(){
+
+document.getElementById("lightbox").style.display="none"
+
+}
+
+</script>
+
+</body>
+
+</html>
